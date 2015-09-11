@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var Promise = require('bluebird');
-
+var pluckFirstLineFromFile = require('./pluckFirstLineFromFile.js');
 /**
  * Using Promise.all, write a function, combineFirstLineOfManyFiles, that:
  *    1. Reads each file at the path in the `filePaths` array
@@ -23,6 +23,21 @@ var Promise = require('bluebird');
 
 var combineFirstLineOfManyFiles = function (filePaths, writePath) {
   // YOUR CODE HERE
+  var promises = [];
+
+  for (var i = 0; i < filePaths.length; i++) {
+    promises.push(pluckFirstLineFromFile(filePaths[i]));
+  }
+
+  return Promise.all(promises).then(function joinFirstLine (firstLinesArray) {
+    return firstLinesArray.join('\n');
+  }).then(function writeFirstLineToFile (firstLinesString) {
+    fs.writeFile(writePath, firstLinesString, function (err) {
+      if (err) {
+        console.log('Error at fs.writeFile: ' + err);
+      }
+    });
+  });
 };
 
 module.exports = combineFirstLineOfManyFiles;

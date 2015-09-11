@@ -16,6 +16,6 @@ fs.readFile(filePath, function (err, content) {
 });
 
 // Set `readFileWithPromisify` to be a promisified version of `fs.readFile`
-var readFileWithPromisify;
+var readFileWithPromisify = Promise.promisify(fs.readFile);
 
 module.exports = readFileWithPromisify;

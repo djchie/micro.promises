@@ -18,6 +18,15 @@ fs.readFile(filePath, function (err, content) {
 // will be available in the `catch` block
 var readFileWithPromise = function (filePath) {
   // YOUR CODE HERE
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, function (err, content) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(content);
+      }
+    });
+  });
 };
 
 module.exports = readFileWithPromise;

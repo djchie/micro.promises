@@ -15,7 +15,7 @@ var getStatusCode = function (url, callback) {
 };
 
 // Set `getStatusCodeWithPromisify` to be a promisified version of `getStatusCode`
-var getStatusCodeWithPromisify;
+var getStatusCodeWithPromisify = Promise.promisify(getStatusCode);
 // NOTE: promisify doesn't care what the underlying asyncronous work is,
 // it can be used for any function that follows the node style pattern above
 
